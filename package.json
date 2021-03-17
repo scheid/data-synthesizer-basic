@@ -1,0 +1,29 @@
+{
+  "name": "data-synthesizer-basic",
+  "version": "1.0.0",
+  "description": "Highly configurable tool that will dynamically generate data. The data is created in realtime, and is a completely client-side service; no server side is needed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc --declaration --removeComments true --outDir dist --target ES6 --moduleResolution node lib/data-synthesizer-basic.service.ts lib/data-synth-util.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scheid/data-synthesizer-basic.git"
+  },
+  "author": "Todd M. Eischeid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scheid/data-synthesizer-basic/issues"
+  },
+  "homepage": "https://github.com/scheid/data-synthesizer-basic#readme",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "lorem-ipsum": "^2.0.3",
+    "prng-wasm": "^1.0.5",
+    "rxjs": "^6.6.6"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
