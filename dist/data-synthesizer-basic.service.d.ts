@@ -1,0 +1,35 @@
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+export declare class DataSynthesizerServiceBasic {
+    module: any;
+    wasmReady: BehaviorSubject<boolean>;
+    msecInDay: number;
+    holdAutoIncrementId: number;
+    constructor();
+    getRndDateTimeTodayInPast(randomVariate: number, forceBusinessHours: boolean): Date;
+    getRndDateInPast(minDaysAgo: number, maxDaysAgo: number, exactDays: boolean, randomVariate: number): Date;
+    getRndDateInFuture(minDaysAhead: number, maxDaysAhead: number, exactDays: boolean, randomVariate: number): Date;
+    setSeed(seed: number): Observable<boolean>;
+    private instantiateWasm;
+    private generateObject;
+    generateDataset(config: any): Observable<any[]>;
+    getSimpleNumericIds(min: any, max: any, count: number): Observable<number[]>;
+    private getRandomRangeInternal;
+    getRandomRange(min: any, max: any, count: number): Observable<number[]>;
+    private getLogNormalDistributionVariatesInternal;
+    getLogNormalDistributionVariates(mu: number, sigma: number, reinterpretParams: boolean, count: number): Observable<number[]>;
+    private getNormalDistributionVariatesInternal;
+    getNormalDistributionVariates(mean: number, stDev: number, count: number): Observable<number[]>;
+    private getExponentialDistributionVariatesInternal;
+    getExponentialDistributionVariates(lambda: number, count: number): Observable<number[]>;
+    private getUniform01DistributionVariatesInternal;
+    getUniform01DistributionVariates(count: number): Observable<number[]>;
+    private getUUidsInternal;
+    getUuids(count: number): Observable<string[]>;
+    makeIdsForStrings(items: string[]): Observable<number[]>;
+    private chooseRandomItemWeightedInternal;
+    chooseRandomItemWeighted(weights: number[], valueCount: number): Observable<number[]>;
+    getCharacterIds(count: number): Observable<string[]>;
+    chooseRandomItems(sourceArraySize: any, itemsToPick: any, valueSetCount: any): Observable<number[]>;
+    private chooseRandomItemsInternal;
+}
