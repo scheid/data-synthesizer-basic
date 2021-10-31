@@ -213,6 +213,7 @@ export class DataSynthesizerServiceBasic {
         }
         let temporaryFields = [];
         let calculatedFields = [];
+        let a;
         for (j = 0; j < config.fields.length; j++) {
             if (config.fields[j].temporary) {
                 temporaryFields.push(config.fields[j].name);
@@ -223,9 +224,42 @@ export class DataSynthesizerServiceBasic {
             switch (config.fields[j].type) {
                 case DataSynthUtil.RANDOM_NUMERIC_RANGE_UNIFORM:
                     holdTmpVals[j] = this.getUniform01DistributionVariatesInternal(config.recordsToGenerate);
+                    if (config.fields[j].min && config.fields[j].max) {
+                        for (a = 0; a < holdTmpVals[j].length; a++) {
+                            holdTmpVals[j][a] = config.fields[j].min + holdTmpVals[j][a] * (config.fields[j].max - config.fields[j].min);
+                        }
+                    }
+                    if (config.fields[j].decimalPlaces === 0) {
+                        for (a = 0; a < holdTmpVals[j].length; a++) {
+                            holdTmpVals[j][a] = Math.round(holdTmpVals[j][a]);
+                        }
+                    }
+                    else {
+                        if (config.fields[j].decimalPlaces) {
+                            for (a = 0; a < holdTmpVals[j].length; a++) {
+                                holdTmpVals[j][a] = _.round(holdTmpVals[j][a], config.fields[j].decimalPlaces);
+                            }
+                        }
+                        else {
+                        }
+                    }
                     break;
                 case DataSynthUtil.RANDOM_NUMERIC_RANGE_NORMAL:
                     holdTmpVals[j] = this.getNormalDistributionVariatesInternal(config.fields[j].mean, config.fields[j].stDev, config.recordsToGenerate);
+                    if (config.fields[j].decimalPlaces === 0) {
+                        for (a = 0; a < holdTmpVals[j].length; a++) {
+                            holdTmpVals[j][a] = Math.round(holdTmpVals[j][a]);
+                        }
+                    }
+                    else {
+                        if (config.fields[j].decimalPlaces) {
+                            for (a = 0; a < holdTmpVals[j].length; a++) {
+                                holdTmpVals[j][a] = _.round(holdTmpVals[j][a], config.fields[j].decimalPlaces);
+                            }
+                        }
+                        else {
+                        }
+                    }
                     break;
                 case DataSynthUtil.RANDOM_NUMERIC_RANGE_LOGNORMAL:
                     holdTmpVals[j] = this.getLogNormalDistributionVariatesInternal(config.fields[j].mean, config.fields[j].stDev, true, config.recordsToGenerate);
