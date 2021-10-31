@@ -358,6 +358,7 @@ export class DataSynthesizerServiceBasic {
 
     let temporaryFields = [];
     let calculatedFields = [];
+    let a;
 
     // pre-populate arrays with the necesssary raw random values.
     // each of the calls here populate each field value with raw values for all records
@@ -383,10 +384,58 @@ export class DataSynthesizerServiceBasic {
 
         case DataSynthUtil.RANDOM_NUMERIC_RANGE_UNIFORM:
           holdTmpVals[j] = this.getUniform01DistributionVariatesInternal(config.recordsToGenerate);
+
+            // must have both min and max for this to be calculated
+          // must have both min and max for this to be calculated
+          if (config.fields[j].min && config.fields[j].max) {
+           
+             for(a = 0; a < holdTmpVals[j].length; a++) {
+               holdTmpVals[j][a] = config.fields[j].min + holdTmpVals[j][a] * (config.fields[j].max - config.fields[j].min)
+             }
+
+          }
+
+          if (config.fields[j].decimalPlaces === 0) {
+             for(a = 0; a < holdTmpVals[j].length; a++) {
+               holdTmpVals[j][a] = Math.round(holdTmpVals[j][a]);
+             }
+           } else {
+
+             // if decimal places exists and greater than zero
+             if (config.fields[j].decimalPlaces) {
+               for(a = 0; a < holdTmpVals[j].length; a++) {
+                 holdTmpVals[j][a] = _.round(holdTmpVals[j][a], config.fields[j].decimalPlaces);
+               } 
+             } else {
+               // NO-OP: leave value as is
+
+             }
+             
+           }
+
           break;
 
         case DataSynthUtil.RANDOM_NUMERIC_RANGE_NORMAL:
           holdTmpVals[j] = this.getNormalDistributionVariatesInternal(config.fields[j].mean, config.fields[j].stDev, config.recordsToGenerate);
+
+          if (config.fields[j].decimalPlaces === 0) {
+             for(a = 0; a < holdTmpVals[j].length; a++) {
+               holdTmpVals[j][a] = Math.round(holdTmpVals[j][a]);
+             }
+           } else {
+
+             // if decimal places exists and greater than zero
+             if (config.fields[j].decimalPlaces) {
+               for(a = 0; a < holdTmpVals[j].length; a++) {
+                 holdTmpVals[j][a] = _.round(holdTmpVals[j][a], config.fields[j].decimalPlaces);
+               } 
+             } else {
+               // NO-OP: leave value as is
+
+             }
+             
+           }
+          
           break;
 
         case DataSynthUtil.RANDOM_NUMERIC_RANGE_LOGNORMAL:
