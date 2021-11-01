@@ -276,7 +276,7 @@ export class DataSynthesizerServiceBasic {
                         }
                         let _tmpItems = this.chooseRandomItemsInternal(config.fields[j].list.length, config.recordsToGenerate, 1);
                         for (a = 0; a < _tmpItems[0].length; a++) {
-                            holdTmpVals[j][a] = _tmpItems[a];
+                            holdTmpVals[j][a] = _tmpItems[0][a];
                         }
                     }
                     else {
