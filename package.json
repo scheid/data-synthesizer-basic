@@ -1,6 +1,6 @@
 {
   "name": "data-synthesizer-basic",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Highly configurable tool that will dynamically generate data. The data is created in realtime, and is a completely client-side service; no server side is needed.",
   "main": "index.js",
   "scripts": {
