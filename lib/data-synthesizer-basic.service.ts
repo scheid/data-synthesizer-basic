@@ -411,7 +411,7 @@ export class DataSynthesizerServiceBasic {
 
              }
              
-           }
+          }
 
           break;
 
@@ -447,10 +447,28 @@ export class DataSynthesizerServiceBasic {
 
         case DataSynthUtil.RANDOM_LIST_WEIGHTED:
           holdTmpVals[j] = this.chooseRandomItemWeightedInternal(config.fields[j].weights, config.recordsToGenerate);
+
+
           break;
 
         case DataSynthUtil.RANDOM_LIST_UNIFORM:
-          holdTmpVals[j] = this.getRandomRangeInternal(0, config.fields[j].list.length - 1 , config.recordsToGenerate);
+
+          
+          if (config.fields[j].ensureNoDuplicates) {
+              if (config.fields[j].list.length < config.recordsToGenerate) { console.log( "ERROR: error in RANDOM_LIST_UNIFORM item; list to pick from is smaller than number of records, and ensureNoDuplicates has been specified." );}
+              let _tmpItems: any[] = this.chooseRandomItemsInternal(config.fields[j].list.length, config.recordsToGenerate, 1);
+              
+              // chooseRandomItemsInternal returns an array of arrays; here we only generate a single record and thus only need the first array item, which is an array of values that we need.
+              for (a = 0; a < _tmpItems[0].length; a++) {
+                holdTmpVals[j][a] = _tmpItems[a];
+              }
+              
+              
+          } else {
+              holdTmpVals[j] = this.getRandomRangeInternal(0, config.fields[j].list.length - 1 , config.recordsToGenerate);
+          }
+
+          
           break;
 
         case DataSynthUtil.DATE_IN_PAST_EXACT:
