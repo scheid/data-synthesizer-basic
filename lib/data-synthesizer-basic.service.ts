@@ -460,7 +460,7 @@ export class DataSynthesizerServiceBasic {
               
               // chooseRandomItemsInternal returns an array of arrays; here we only generate a single record and thus only need the first array item, which is an array of values that we need.
               for (a = 0; a < _tmpItems[0].length; a++) {
-                holdTmpVals[j][a] = _tmpItems[a];
+                holdTmpVals[j][a] = _tmpItems[0][a];
               }
               
               
