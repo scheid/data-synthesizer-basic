@@ -463,6 +463,7 @@ export class DataSynthesizerServiceBasic {
                 holdTmpVals[j][a] = _tmpItems[0][a];
               }
               
+              console.log('ensureNoDuplicates true, ', holdTmpVals[j]);
               
           } else {
               holdTmpVals[j] = this.getRandomRangeInternal(0, config.fields[j].list.length - 1 , config.recordsToGenerate);
